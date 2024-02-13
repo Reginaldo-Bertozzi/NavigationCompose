@@ -38,13 +38,12 @@ fun Navigation() {
             arguments = listOf(
                 navArgument("name") {
                     type = NavType.StringType
-                    defaultValue = "Reginaldo"
+                    defaultValue = "Philipp"
                     nullable = true
                 }
             )
         ){entry ->
             DetailScreen(name = entry.arguments?.getString("name"))
-
         }
     }
 }
@@ -57,7 +56,7 @@ fun MainScreen(navController: NavController) {
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(horizontal = 50.dp)
     ) {
         TextField(
@@ -67,12 +66,14 @@ fun MainScreen(navController: NavController) {
             },
             modifier = Modifier.fillMaxWidth()
         )
+        if(text=="") {text="Reginaldo"}
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = {
-                navController.navigate(Screen.DetailScreen.route)
+                navController.navigate(Screen.DetailScreen.withArgs(text))
             },
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
         ) {
             Text(text = "Vai para a tela de Detalhes")
         }
@@ -85,6 +86,6 @@ fun DetailScreen(name: String?) {
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(text = "Hello, $name")
+        Text(text = "Hello, $name!")
     }
 }
